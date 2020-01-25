@@ -8,4 +8,3 @@ airports = pd.read_csv('./data/airports.dat.txt', header=None, names=ap_col)
 
 rt_col = ['Airline', 'Airline ID', 'Source Airport', 'Src Airport ID', 'Dest Airport', 'Dest Airport ID', 'Codeshare', 'Stops', 'Equipment']
 routes = pd.read_csv('./data/routes.dat.txt', header=None, names=rt_col)
-print(routes.head())
