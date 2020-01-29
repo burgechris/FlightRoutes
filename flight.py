@@ -1,10 +1,10 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import math
 import networkx as nx
 from networkx import drawing
 from networkx import graph
+import heapq
 
 ap_col = ['Airport ID', 'Name', 'City', 'Country', 'IATA', 'ICAO', 'Lat',
           'Log', 'Alt', 'Timezone', 'DST', 'TZ Database', 'Type', 'Source']
@@ -18,7 +18,6 @@ routes = pd.read_csv('./data/routes.dat.txt', header=None, names=rt_col)
 
 def toRadians(degrees):
     return (degrees * math.pi)/180.0
-
 
 def distance(lat1, lon1, lat2, lon2):
     # R radius of Earth
@@ -36,12 +35,12 @@ def distance(lat1, lon1, lat2, lon2):
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
 
     d = R * c
-    return d
+    return math.trunc(d/1000)
 
 
 def flightplanner(source, destination):
     G = nx.Graph()
-    newDF = routes[(routes.Airline == 'AS')]
+    newDF = routes[(routes.Airline == 'AS') | (routes.Airline == 'AA')]
     for index, airport in airports.iterrows():
         G.add_node(airport['IATA'])
     for i, route in newDF.iterrows():
@@ -58,8 +57,25 @@ def flightplanner(source, destination):
 
             G.add_edge(route_src, route_dest, weight=route_dist)
 
-    return nx.all_shortest_paths(G, source=source, target=destination, weight='weight')
-    #nx.all_simple_paths(G, source=source, target=destination, cutoff=3)
+    return G
+
+
+def path_distance(G, array_of_stops):
+    distance = 0
+    for index in range(0, len(array_of_stops)-1):
+        distance = distance + G.edges[array_of_stops[index], array_of_stops[index + 1]]['weight']
+
+    return distance
+
+
+def weighted(G, paths):
+    h = []
+    for path in paths:
+        distance = path_distance(G, path)
+        t = (distance, path)
+        heapq.heappush(h, t)
+
+    return [heapq.heappop(h) for index in range(len(h))]
 
 
 def drawG(G):
@@ -68,7 +84,14 @@ def drawG(G):
     nx.draw_networkx_edges(G, pos)
     plt.show()
 
+G = flightplanner('SFO', 'PDX')
 
-coolflight = flightplanner('SFO', 'PDX')
+coolflight = nx.all_simple_paths(G, source='SFO', target='PDX', cutoff=3)
 
-print(list(coolflight))
+paths = list(coolflight)
+
+distance_route_sorted = weighted(G, paths)
+
+df = pd.DataFrame(distance_route_sorted, columns=['Distance', 'Stops'])
+
+print(df)
