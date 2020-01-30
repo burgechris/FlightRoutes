@@ -17,7 +17,7 @@ _There are currenly no bugs reported._
 
 ## Support and contact details
 
-Please feel free to contact the developer by raising a new issue [here](https://github.com/jbatara/FlightRoutes/issues/new) or [here](https://github.com/burgechris/FlightRoutes/issues/new) on the github repo. You can browse the current issues [here](https://github.com/jbatara/FlightRoutes/issues) or here](https://github.com/burgechris/FlightRoutes/issues).
+Please feel free to contact the developer by raising a new issue [here](https://github.com/jbatara/FlightRoutes/issues/new) or [here](https://github.com/burgechris/FlightRoutes/issues/new) on the github repo. You can browse the current issues [here](https://github.com/jbatara/FlightRoutes/issues) or [here](https://github.com/burgechris/FlightRoutes/issues).
 
 ## Technologies Used
 
