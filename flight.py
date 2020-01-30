@@ -77,7 +77,6 @@ def weighted(G, paths):
 
     return [heapq.heappop(h) for index in range(len(h))]
 
-
 def drawG(G):
     pos = nx.spring_layout(G)
     nx.draw_networkx_nodes(G, pos)
