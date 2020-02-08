@@ -6,7 +6,7 @@
 
 ## Description
 
-This project is an excercise to explore and analyze the airport and flight route data from the [OpenFlight website](https://openflights.org/data.html) to determine the shortest paths between a source and destination airport.
+This project is an exercise to explore and analyze the airport and flight route data from the [OpenFlight website](https://openflights.org/data.html) to determine the shortest paths between a source and destination airport.
 
 To look at a more detailed explination, please check out our [Jupyter Notebook](https://github.com/jbatara/FlightRoutes/blob/master/SFO%20-%20PDX.ipynb)!
 
